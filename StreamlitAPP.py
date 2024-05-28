@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from src.MCQGenerator.utils import read_file,get_table_data
 import streamlit as st
 from langchain.callbacks import get_openai_callback
-from src.MCQGenerator.MCQGenerator import generate_evaluate_chain
+from src.MCQGenerator.MCQGenerator import generate_and_evaluate_quiz
 from src.MCQGenerator.logger import logging
 
 #loading json file
@@ -42,7 +42,7 @@ with st.form("user_inputs"):
                 text=read_file(uploaded_file)
                 #Count tokens and the cost of API call
                 with get_openai_callback() as cb:
-                    response=generate_evaluate_chain(
+                    response=generate_and_evaluate_quiz(
                         {
                         "text": text,
                         "number": mcq_count,
